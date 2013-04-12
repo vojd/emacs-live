@@ -2,6 +2,7 @@
 ;;
 ;; This is where everything starts. Do you remember this place?
 ;; It remembers you...
+(load (expand-file-name "load-path" (file-name-directory load-file-name)) nil t)
 
 (add-to-list 'command-switch-alist
              (cons "--live-safe-mode"
@@ -132,7 +133,6 @@
 
 ;;default packs
 (let* ((pack-names '("foundation-pack"
-                     "colour-pack"
                      "clojure-pack"
                      "lang-pack"
                      "power-pack"
@@ -214,3 +214,5 @@
     (setq custom-file (concat live-custom-dir "custom-configuration.el")))
 (when (file-exists-p custom-file)
   (load custom-file))
+
+(load-theme 'solarized-dark t)
