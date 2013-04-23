@@ -216,3 +216,6 @@
   (load custom-file))
 
 (load-theme 'solarized-dark t)
+
+;; stupid loading, this shall be broken out and made dynamic
+(require 'python-django)
