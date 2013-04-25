@@ -215,7 +215,36 @@
 (when (file-exists-p custom-file)
   (load custom-file))
 
+;; ########################
+;; # Personal config      #
+;; # this shall be broken #
+;; # out and made dynamic #
+;; ########################
+
 (load-theme 'solarized-dark t)
 
-;; stupid loading, this shall be broken out and made dynamic
+;; line numbers on the side
+(global-linum-mode t)
+
 (require 'python-django)
+
+;; EPC (used for jedi)
+(require 'epc)
+
+(defvar my-epc (epc:start-epc "python" '("/home/vojd/.epc/server.py")))
+(deferred:$
+  (epc:call-deferred my-epc 'echo '(10))
+  (deferred:nextc it
+    (lambda (x) (message "Return : %S" x))))
+
+(message "Return : %S" (epc:call-sync my-epc 'echo '(10 40)))
+
+;; Jedi
+(autoload 'jedi:setup "jedi" nil t)
+(add-hook 'python-mode-hook 'jedi:setup)
+(setq jedi:setup-keys t)
+
+;; keybindings using bind-key.el
+(require 'bind-key)
+(bind-key "C-M-8" "[]")
+(bind-key "C-M-s-8" "{}")
