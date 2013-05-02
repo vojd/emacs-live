@@ -234,7 +234,10 @@
 ;; keybindings using bind-key.el
 (require 'bind-key)
 (bind-key "C-M-8" "[]")
+(bind-key "M-s-(" "[]")
 (bind-key "C-M-s-8" "{}")
+(bind-key "M-s-/" "{}")
+
 
 ;; duplicate line
 (defun duplicate-line()
@@ -244,6 +247,5 @@
   (yank)
   (open-line 1)
   (next-line 1)
-  (yank)
-)
-(bind-key "C-c C-d" 'duplicate-line)
+  (yank))
+(bind-key "C-c C-v" 'duplicate-line)
