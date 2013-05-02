@@ -210,8 +210,30 @@
 
 (load-theme 'solarized-dark t)
 
+(require 'goto-chg)
 ;; line numbers on the side
 (global-linum-mode t)
+
+;; keybindings using bind-key.el
+(require 'bind-key)
+(bind-key "C-M-8" "[]")
+(bind-key "M-s-(" "[]")
+(bind-key "C-M-s-8" "{}")
+(bind-key "M-s-/" "{}")
+
+(bind-key "C-+" 'goto-last-change)
+(bind-key "C-´" 'goto-last-change-reverse)
+
+;; duplicate line
+(defun duplicate-line()
+  (interactive)
+  (move-beginning-of-line 1)
+  (kill-line)
+  (yank)
+  (open-line 1)
+  (next-line 1)
+  (yank))
+(bind-key "C-c C-v" 'duplicate-line)
 
 (require 'python-django)
 
@@ -230,22 +252,3 @@
 (autoload 'jedi:setup "jedi" nil t)
 (add-hook 'python-mode-hook 'jedi:setup)
 (setq jedi:setup-keys t)
-
-;; keybindings using bind-key.el
-(require 'bind-key)
-(bind-key "C-M-8" "[]")
-(bind-key "M-s-(" "[]")
-(bind-key "C-M-s-8" "{}")
-(bind-key "M-s-/" "{}")
-
-
-;; duplicate line
-(defun duplicate-line()
-  (interactive)
-  (move-beginning-of-line 1)
-  (kill-line)
-  (yank)
-  (open-line 1)
-  (next-line 1)
-  (yank))
-(bind-key "C-c C-v" 'duplicate-line)
