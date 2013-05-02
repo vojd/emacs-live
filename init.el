@@ -179,21 +179,8 @@
 
 (when live-supported-emacsp
   (setq initial-scratch-message (concat ";;
-;;     MM\"\"\"\"\"\"\"\"`M
-;;     MM  mmmmmmmM
-;;     M`      MMMM 88d8b.d8b. .d8888b. .d8888b. .d8888b.
-;;     MM  MMMMMMMM 88''88'`88 88'  `88 88'  `\"\" Y8ooooo.
 ;;     MM  MMMMMMMM 88  88  88 88.  .88 88.  ...       88
-;;     MM        .M dP  dP  dP `88888P8 '88888P' '88888P'
-;;     MMMMMMMMMMMM
-;;
-;;         M\"\"MMMMMMMM M\"\"M M\"\"MMMMM\"\"M MM\"\"\"\"\"\"\"\"`M
-;;         M  MMMMMMMM M  M M  MMMMM  M MM  mmmmmmmM
-;;         M  MMMMMMMM M  M M  MMMMP  M M`      MMMM
-;;         M  MMMMMMMM M  M M  MMMM' .M MM  MMMMMMMM
-;;         M  MMMMMMMM M  M M  MMP' .MM MM  MMMMMMMM
-;;         M         M M  M M     .dMMM MM        .M
-;;         MMMMMMMMMMM MMMM MMMMMMMMMMM MMMMMMMMMMMM  Version " live-version
+;;     MMMMMMMMMMM MMMM MMMMMMMMMMM MMMMMMMMMMMM  Version " live-version
                                                                 (if live-safe-modep
                                                                     "
 ;;                                                     --*SAFE MODE*--"
@@ -248,3 +235,15 @@
 (require 'bind-key)
 (bind-key "C-M-8" "[]")
 (bind-key "C-M-s-8" "{}")
+
+;; duplicate line
+(defun duplicate-line()
+  (interactive)
+  (move-beginning-of-line 1)
+  (kill-line)
+  (yank)
+  (open-line 1)
+  (next-line 1)
+  (yank)
+)
+(bind-key "C-c C-d" 'duplicate-line)
