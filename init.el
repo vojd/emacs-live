@@ -252,3 +252,8 @@
 (autoload 'jedi:setup "jedi" nil t)
 (add-hook 'python-mode-hook 'jedi:setup)
 (setq jedi:setup-keys t)
+
+;; org mode loaders
+(setq org-log-done 'time)
+(setq org-agenda-files (list "~/org/general.org"
+                             )) ;; add more to list
