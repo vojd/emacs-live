@@ -215,11 +215,35 @@
 (global-linum-mode t)
 
 ;; keybindings using bind-key.el
+
+(defun curly-brackets ()
+  (interactive)
+  (insert "{}")
+  (backward-char 1))
+
+(defun brackets ()
+  (interactive)
+  (insert "[]")
+  (backward-char 1))
+
 (require 'bind-key)
-(bind-key "C-M-8" "[]")
-(bind-key "M-s-(" "[]")
-(bind-key "C-M-s-8" "{}")
-(bind-key "M-s-/" "{}")
+(bind-key "M-s-8" 'brackets)
+(bind-key "M-s-(" 'curly-brackets)
+(bind-key "M-s-9" "]")
+(bind-key "M-s-)" "}")
+
+(defun django-template-tag-bracket()
+  (interactive)
+  (insert "{%  %}")
+  (backward-char 3))
+
+(defun django-template-var-bracket()
+  (interactive)
+  (insert "{{   }}")
+  (backward-char 4))
+
+;;(bind-key "C-M-s-(", 'django-template-tag-bracket)
+;;(bind-key "C-M-s-/", 'django-template-var-bracket)
 
 (bind-key "C-+" 'goto-last-change)
 (bind-key "C-´" 'goto-last-change-reverse)
@@ -233,10 +257,16 @@
   (open-line 1)
   (next-line 1)
   (yank))
-(bind-key "C-c C-v" 'duplicate-line)
+(bind-key "C-x C-o" 'duplicate-line)
+
+;; ipdb
+(defun insert-ipdb ()
+  (interactive)
+  (insert "import ipdb; ipdb.set_trace()"))
+(bind-key "C-x C-'" 'insert-ipdb)
 
 (require 'python-django)
-
+(require 'python-flake8)
 ;; EPC (used for jedi)
 (require 'epc)
 
@@ -255,5 +285,4 @@
 
 ;; org mode loaders
 (setq org-log-done 'time)
-(setq org-agenda-files (list "~/org/general.org"
-                             )) ;; add more to list
+(setq org-agenda-files (list "~/org/general.org")) ;; add more to list
