@@ -286,3 +286,18 @@
 ;; org mode loaders
 (setq org-log-done 'time)
 (setq org-agenda-files (list "~/org/general.org")) ;; add more to list
+
+
+;; loccur
+(require 'loccur)
+;; defines shortcut for loccur of the current word
+(define-key global-map [(control o)] 'loccur-current)
+;; defines shortcut for the interactive loccur command
+(define-key global-map [(control meta o)] 'loccur)
+;; defines shortcut for the loccur of the previously found word
+(define-key global-map [(control shift o)] 'loccur-previous-match)
+
+(defun loccur/list-Python-functions()
+  "Displays only the lines corresponding to a function
+declaration in a Python file."
+  (loccur-no-highlight "^ *def "))
