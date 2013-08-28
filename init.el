@@ -210,6 +210,8 @@
 
 (load-theme 'solarized-dark t)
 
+(load "~/.emacs-private.d/init.el" 'noerror 'nomessage)
+
 (require 'goto-chg)
 ;; line numbers on the side
 (global-linum-mode t)
@@ -231,11 +233,13 @@
 (bind-key "M-s-(" 'curly-brackets)
 (bind-key "M-s-9" "]")
 (bind-key "M-s-)" "}")
+(bind-key "M-¨" "~")
 
 (defun django-template-tag-bracket()
   (interactive)
   (insert "{%  %}")
   (backward-char 3))
+
 
 (defun django-template-var-bracket()
   (interactive)
@@ -270,7 +274,8 @@
 ;; EPC (used for jedi)
 (require 'epc)
 
-(defvar my-epc (epc:start-epc "python" '("/home/vojd/.epc/server.py")))
+(defvar my-epc (epc:start-epc "python" '("/home/vojd/.emacs.d/lib/epc/server.py")))
+
 (deferred:$
   (epc:call-deferred my-epc 'echo '(10))
   (deferred:nextc it
@@ -286,3 +291,7 @@
 ;; org mode loaders
 (setq org-log-done 'time)
 (setq org-agenda-files (list "~/org/general.org")) ;; add more to list
+
+;; kill ring browse-url
+(require 'browse-kill-ring)
+(bind-key "C-c C-y" 'browse-kill-ring)
