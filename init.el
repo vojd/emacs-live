@@ -15,46 +15,19 @@
         nil))
 
 (setq initial-scratch-message "
-;; I'm sorry, Emacs Live failed to start correctly.
-;; Hopefully the issue will be simple to resolve.
-;;
+;; Emacs Live failed to start correctly.
 ;; First up, could you try running Emacs Live in safe mode:
-;;
 ;;    emacs --live-safe-mode
-;;
-;; This will only load the default packs. If the error no longer occurs
-;; then the problem is probably in a pack that you are loading yourself.
-;; If the problem still exists, it may be a bug in Emacs Live itself.
-;;
+;; This will only load the default packs. 
 ;; In either case, you should try starting Emacs in debug mode to get
 ;; more information regarding the error:
-;;
 ;;    emacs --debug-init
 ;;
 ;; Please feel free to raise an issue on the Gihub tracker:
-;;
 ;;    https://github.com/overtone/emacs-live/issues
 ;;
 ;; Alternatively, let us know in the mailing list:
-;;
 ;;    http://groups.google.com/group/emacs-live
-;;
-;; Good luck, and thanks for using Emacs Live!
-;;
-;;                _.-^^---....,,--
-;;            _--                  --_
-;;           <          SONIC         >)
-;;           |       BOOOOOOOOM!       |
-;;            \._                   _./
-;;               ```--. . , ; .--'''
-;;                     | |   |
-;;                  .-=||  | |=-.
-;;                  `-=#$%&%$#=-'
-;;                     | ;  :|
-;;            _____.,-#%&$@%#&#~,._____
-;;      May these instructions help you raise
-;;                  Emacs Live
-;;                from the ashes
 ")
 
 (setq live-supported-emacsp t)
@@ -62,26 +35,9 @@
 (when (< emacs-major-version 24)
   (setq live-supported-emacsp nil)
   (setq initial-scratch-message (concat "
-;;                _.-^^---....,,--
-;;            _--                  --_
-;;           <          SONIC         >)
-;;           |       BOOOOOOOOM!       |
-;;            \._                   _./
-;;               ```--. . , ; .--'''
-;;                     | |   |
-;;                  .-=||  | |=-.
-;;                  `-=#$%&%$#=-'
-;;                     | ;  :|
-;;            _____.,-#%&$@%#&#~,._____
-;;
-;; I'm sorry, Emacs Live is only supported on Emacs 24+.
+;; Emacs Live is only supported on Emacs 24+.
 ;;
 ;; You are running: " emacs-version "
-;;
-;; Please upgrade your Emacs for full compatibility.
-;;
-;; Latest versions of Emacs can be found here:
-;;
 ;; OS X GUI     - http://emacsformacosx.com/
 ;; OS X Console - via homebrew (http://mxcl.github.com/homebrew/)
 ;;                brew install emacs
@@ -295,3 +251,17 @@
 ;; kill ring browse-url
 (require 'browse-kill-ring)
 (bind-key "C-c C-y" 'browse-kill-ring)
+
+;; loccur
+(require 'loccur)
+;; defines shortcut for loccur of the current word
+(define-key global-map [(control o)] 'loccur-current)
+;; defines shortcut for the interactive loccur command
+(define-key global-map [(control meta o)] 'loccur)
+;; defines shortcut for the loccur of the previously found word
+(define-key global-map [(control shift o)] 'loccur-previous-match)
+
+(defun loccur/list-Python-functions()
+  "Displays only the lines corresponding to a function
+declaration in a Python file."
+  (loccur-no-highlight "^ *def "))
