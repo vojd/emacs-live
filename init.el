@@ -18,7 +18,7 @@
 ;; Emacs Live failed to start correctly.
 ;; First up, could you try running Emacs Live in safe mode:
 ;;    emacs --live-safe-mode
-;; This will only load the default packs. 
+;; This will only load the default packs.
 ;; In either case, you should try starting Emacs in debug mode to get
 ;; more information regarding the error:
 ;;    emacs --debug-init
@@ -150,8 +150,8 @@
 ")))
 )
 
-(if (not live-disable-zone)
-    (add-hook 'term-setup-hook 'zone))
+;(if (not live-disable-zone)
+;   (add-hook 'term-setup-hook 'zone))
 
 (if (not custom-file)
     (setq custom-file (concat live-custom-dir "custom-configuration.el")))
@@ -163,6 +163,41 @@
 ;; # this shall be broken #
 ;; # out and made dynamic #
 ;; ########################
+
+;; Windows and frames
+
+(defun new-floating-frame ()
+  "Creates a new floating frame.
+This is special to my xmonad configuration which floats windows named floating"
+  (interactive)
+  (make-frame '((name . "floating")
+                (title . "emacs"))))
+
+(defun new-floating-center-frame ()
+  "Creates a new floating frame.
+This is special to my xmonad configuration which floats windows
+named floating-center"
+  (interactive)
+  (make-frame '((name . "floating-center")
+                (title . "emacs"))))
+
+(defun new-floating-center-large-frame ()
+  "Creates a new floating frame.
+This is special to my xmonad configuration which floats windows
+named floating-center"
+  (interactive)
+  (make-frame '((name . "floating-center-large")
+                (title . "emacs"))))
+
+(defun find-file-in-large-floating-frame (file)
+  "Find file in large center floating frame."
+  (interactive)
+  (when (file-exists-p file)
+    (let ((frame (new-floating-center-large-frame) ))
+      (select-frame frame)
+      (find-file file))))
+
+
 
 (load-theme 'solarized-dark t)
 
@@ -186,9 +221,13 @@
 
 (require 'bind-key)
 (bind-key "M-s-8" 'brackets)
+(bind-key "C-8" 'brackets)
 (bind-key "M-s-(" 'curly-brackets)
+(bind-key "C-(" 'curly-brackets)
 (bind-key "M-s-9" "]")
+(bind-key "C-9" "]")
 (bind-key "M-s-)" "}")
+(bind-key "C-)" "}")x
 (bind-key "M-¨" "~")
 
 (defun django-template-tag-bracket()
@@ -265,3 +304,6 @@
   "Displays only the lines corresponding to a function
 declaration in a Python file."
   (loccur-no-highlight "^ *def "))
+
+;; projectile
+(require 'projectile)
