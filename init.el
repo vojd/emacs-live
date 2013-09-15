@@ -214,6 +214,16 @@ named floating-center"
   (insert "{}")
   (backward-char 1))
 
+(defun curly-brackets-newline ()
+  (interactive)
+  (insert "{")
+  (newline)
+  (indent-relative)
+  (newline)
+  (insert "}")
+  (backward-char 1)
+  (indent-relative))
+
 (defun brackets ()
   (interactive)
   (insert "[]")
@@ -223,12 +233,7 @@ named floating-center"
 (bind-key "M-s-8" 'brackets)
 (bind-key "C-8" 'brackets)
 (bind-key "M-s-(" 'curly-brackets)
-(bind-key "C-(" 'curly-brackets)
-(bind-key "M-s-9" "]")
-(bind-key "C-9" "]")
-(bind-key "M-s-)" "}")
-(bind-key "C-)" "}")x
-(bind-key "M-¨" "~")
+(bind-key "C-(" 'curly-brackets-newline)
 
 (defun django-template-tag-bracket()
   (interactive)
