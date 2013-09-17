@@ -198,6 +198,34 @@ named floating-center"
       (find-file file))))
 
 
+(defun make-floating-minibuffer-frame ()
+  "Creates a new floating frame.
+This is special to my xmonad configuration which floats windows
+named floating-center"
+  (interactive)
+  (make-frame '((name . "floating-center-large")
+                (title . "emacs popup minibuffer"))))
+
+(defvar popup-minibuffer-frame nil)
+(add-hook 'minibuffer-exit-hook
+          '(lambda ()
+             (when (and
+                    popup-minibuffer-frame
+                      (frame-live-p popup-minibuffer-frame))
+               (delete-frame popup-minibuffer-frame t)
+               (setq popup-minibuffer-frame nil))))
+
+(defun popup-minibuffer-switch ()
+  "popup minibuffer swtich WIP
+TODO detect if running under xmonad, otherwise dont popup
+TODO generalise function to work with other ido prompts."
+  (interactive)
+  (setq popup-minibuffer-frame (make-floating-minibuffer-frame))
+  (with-selected-frame
+      popup-minibuffer-frame
+        (call-interactively 'helm-for-files)))
+
+(bind-key "C-<" 'popup-minibuffer-switch)
 
 (load-theme 'solarized-dark t)
 
