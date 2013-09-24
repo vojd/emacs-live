@@ -1,9 +1,5 @@
-;; Emacs LIVE
-;;
-;; This is where everything starts. Do you remember this place?
-;; It remembers you...
 (load (expand-file-name "load-path" (file-name-directory load-file-name)) nil t)
-
+(set-language-environment "UTF-8")
 (add-to-list 'command-switch-alist
              (cons "--live-safe-mode"
                    (lambda (switch)
@@ -15,7 +11,7 @@
         nil))
 
 (setq initial-scratch-message "
-;; Emacs Live failed to start correctly.
+;; Emacs failed to start correctly.
 ;; First up, could you try running Emacs Live in safe mode:
 ;;    emacs --live-safe-mode
 ;; This will only load the default packs.
@@ -164,6 +160,8 @@
 ;; # out and made dynamic #
 ;; ########################
 
+(require 'bind-key)
+
 ;; Windows and frames
 
 (defun new-floating-frame ()
@@ -257,7 +255,7 @@ TODO generalise function to work with other ido prompts."
   (insert "[]")
   (backward-char 1))
 
-(require 'bind-key)
+
 (bind-key "M-s-8" 'brackets)
 (bind-key "C-8" 'brackets)
 (bind-key "M-s-(" 'curly-brackets)
@@ -337,6 +335,10 @@ TODO generalise function to work with other ido prompts."
   "Displays only the lines corresponding to a function
 declaration in a Python file."
   (loccur-no-highlight "^ *def "))
+
+;; helm
+(add-to-list 'load-path "~/.emacs.d/site-lisp/helm")
+(require 'helm-config)
 
 ;; projectile
 (require 'projectile)
